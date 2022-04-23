@@ -1,0 +1,19 @@
+## ignore .env files
+*.env
+
+## ignore Pipfile
+Pipfile
+Pipfile.lock
+
+# ignore test csv result files
+./db/*
+/db/*
+
+# ignore cache files
+*.pyc
+src/*.pyc
+
+## ignore vscode files
+.vscode
+.DS_Store
+
