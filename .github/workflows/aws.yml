@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ master ]
 
-name: Node Project `my-app` CI on ECR
+name: Scrapy Project `ingcom_scraper` CI on ECR
 
 jobs:
   deploy:
