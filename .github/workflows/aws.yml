@@ -1,7 +1,5 @@
 on
 
-version: 1.0
-
 phases:
   pre_build:
     commands:
