@@ -1,3 +1,27 @@
 venv
+devenv_local.env
+.env
 *.pyc
 src/*.pyc
+unicoder.py
+venv/
+*.csv
+.gitignore
+*.log
+*.html
+*.pyc
+*.crx
+*.json
+test.py
+.fuse*
+*_log.txt
+IngatlanCom_Scraper/.env
+IngatlanCom_Scraper/.scrapy/deltafetch/default.db
+IngatlanCom_Scraper/.scrapy/deltafetch/PhoneNum.db
+*.ods
+*test.py
+
+# exceptions
+!devenv.env
+!ingcom_cities.csv
+!property_types.csv

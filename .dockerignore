@@ -1,5 +1,7 @@
-## ignore .env files
+## ignore env files
 *.env
+/venv/*
+.venv/*
 
 ## ignore Pipfile
 Pipfile
@@ -16,4 +18,11 @@ src/*.pyc
 ## ignore vscode files
 .vscode
 .DS_Store
+
+
+# others
+*.json
+*_log.txt
+*.log
+*.crx
 
