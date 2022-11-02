@@ -30,7 +30,7 @@ os.environ.get('GECKODRIVER_PATH')
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=[
                         #Firefox capabilities
-                        'marionette=False',
+                        #'marionette=False',
                         '-headless'
                            ]  
 
@@ -127,7 +127,7 @@ ITEM_PIPELINES = {
    #'IngatlanCom_Scraper.pipelines.IngatlancomScraperPipeline': 300,
 #    'scrapy_redis.pipelines.RedisPipeline': 400,
     #'s3pipeline.S3Pipeline': 100,   
-    'scrapy.pipelines.files.FilesPipeline': 2  # For files
+    'scrapy.pipelines.files.FilesPipeline': 1  # For files
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -159,7 +159,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 #AWS S3 Storage:
 FEEDS = {
         's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
-        'format': 'jsonlines',
+        'format': 'json',
         'encoding': 'utf8',
         'store_empty': False,
         'indent': 4,
