@@ -8,7 +8,9 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 import os
+from datetime import datetime
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -24,13 +26,35 @@ from shutil import which
 #FIREFOX SETTINGS
 SELENIUM_DRIVER_NAME = 'firefox'
 
-#os.environ.get('GECKODRIVER_PATH')
+os.environ.get('GECKODRIVER_PATH')
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=[
                         #Firefox capabilities
                         'marionette=False',
                         '-headless'
                            ]  
+
+
+#CHROME SETTINGS
+# SELENIUM_DRIVER_NAME = 'chrome'
+# SELENIUM_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROMEDRIVER_PATH')
+# SELENIUM_DRIVER_EXTENSIONS=['Privacy Pass']
+# SELENIUM_DRIVER_ARGUMENTS=[
+#                         #Chrome capabilities
+#                         #'--load-extension={}'.format(os.environ.get('CHROME_EXTENSIONS')),
+#                         #'--headless',
+#                         # '--proxy-server=136.228.141.154:80',
+#                         '--incognito',
+#                         '--window-size=1920,1200',
+#                         '--no-sandbox',
+#                         '--disable-dev-shm-usage',
+#                         '--js-flags=--expose-gc',
+#                         '--enable-precise-memory-info',
+#                         '--disable-popup-blocking',
+#                         '--disable-default-apps',
+#                         'disable-infobars',
+#                         'use-mobile-user-agent',
+#                            ]
   
   
 DOWNLOADER_MIDDLEWARES = {
@@ -41,6 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
+#USER_AGENT = 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -99,8 +124,10 @@ SPIDER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'IngatlanCom_Scraper.pipelines.IngatlancomScraperPipeline': 300,
-#    'scrapy_redis.pipelines.RedisPipeline': 400,   
+   #'IngatlanCom_Scraper.pipelines.IngatlancomScraperPipeline': 300,
+#    'scrapy_redis.pipelines.RedisPipeline': 400,
+    #'s3pipeline.S3Pipeline': 100,   
+    'scrapy.pipelines.files.FilesPipeline': 2  # For files
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -124,6 +151,22 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+#AWS S3 Storage:
+
+AWS_ACCESS_KEY_ID = os.environ['ACCESS_KEY']
+AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
+
+#AWS S3 Storage:
+FEEDS = {
+        's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
+        'format': 'jsonlines',
+        'encoding': 'utf8',
+        'store_empty': False,
+        'indent': 4,
+    }
+}
+
+
 
 LOG_ENABLED=True
 LOG_LEVEL = 'DEBUG'
@@ -131,4 +174,5 @@ LOG_ENCODING='UTF-8'
 LOG_FILE='ingatlancom_log.txt'
 #LOG_FORMAT='%(asctime)s [%(name)s] %(levelname)s: %(message)s'
 
+#CONNECTION_STRING = os.environ.get('CONNECTION_SRING')
 

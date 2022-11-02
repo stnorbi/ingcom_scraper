@@ -25,3 +25,4 @@ IngatlanCom_Scraper/.scrapy/deltafetch/PhoneNum.db
 !devenv.env
 !ingcom_cities.csv
 !property_types.csv
+

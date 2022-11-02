@@ -19,13 +19,13 @@ load_dotenv()
 class PhoneNumSpider(scrapy.Spider):
     name = "PhoneNum"
     mainurl='https://ingatlan.com'
+    urls ='https://ingatlan.com/lista/'+ os.environ['DEAL'] + '+' + os.environ['CITY'] + '+' + os.environ['PROPERTY_TYPE']
 
     # redis_key='PhoneNum'
     
     def __init__(self, *args, **kwargs):
         super(PhoneNumSpider, self).__init__(*args, **kwargs)
         
-        self.urls ='https://ingatlan.com/lista/elado+' + os.environ['CITY'] + '+' + os.environ['PROPERTY_TYPE']
     
     def start_requests(self):
         
@@ -37,10 +37,17 @@ class PhoneNumSpider(scrapy.Spider):
         
     def pagination(self,response):
           
-        maxpage=response.css('.pagination__page-number').get().split()#.split()
-        print(maxpage)
-        #j=int(maxpage[4])+1 #utolsó oldalszám
-        j=2
+        maxpage=response.css('.pagination__page-number').get()
+        
+        if maxpage:
+            maxpage.split()
+            j=int(maxpage[4])+1 #utolsó oldalszám
+        else:
+            maxpage=1
+            j=2
+        
+
+        
         for i in range(1,j): # A 2-est cseréld le "j"-re!!!
             url=self.urls + "?page=" + str(i)
 
@@ -76,7 +83,7 @@ class PhoneNumSpider(scrapy.Spider):
         new_selector = Selector(text=response.body)
 
         loader=ItemLoader(item=IngatlanItem(), selector=new_selector)
-        loader.add_css('address','.address ::text')
+        loader.add_css('street_address','.address ::text')
         loader.add_css('price','span.fw-bold.fs-5.text-nowrap span ::text')
         # loader.add_css('iroda','.officeName ::text')
         # loader.add_css('salesman','.d-flex align-items-center text-start h-100 my-auto font-family-secondary ::text')

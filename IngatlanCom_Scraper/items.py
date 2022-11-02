@@ -17,7 +17,7 @@ def clean_text(text):
 class IngatlanItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    address=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    street_address=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     price=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     url=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     salesman=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
