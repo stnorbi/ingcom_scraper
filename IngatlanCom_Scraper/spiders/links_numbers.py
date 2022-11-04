@@ -83,7 +83,8 @@ class PhoneNumSpider(scrapy.Spider):
         new_selector = Selector(text=response.body)
 
         loader=ItemLoader(item=IngatlanItem(), selector=new_selector)
-        loader.add_css('street_address','.address ::text')
+        #loader.add_css('street_address','.address ::text')
+        loader.add_css('street_address','.align-items-md-start > div:nth-child(1) > span:nth-child(1) ::text')
         loader.add_css('price','span.fw-bold.fs-5.text-nowrap span ::text')
         # loader.add_css('iroda','.officeName ::text')
         # loader.add_css('salesman','.d-flex align-items-center text-start h-100 my-auto font-family-secondary ::text')
