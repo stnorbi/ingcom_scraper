@@ -18,8 +18,8 @@ jobs:
     - name: Configure AWS credentials
       uses: elgohr/ecr-login-action@v2
       with:
-        access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: eu-central-1
 
     - name: Login to Amazon ECR
