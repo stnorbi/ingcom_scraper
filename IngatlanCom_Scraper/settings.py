@@ -176,3 +176,4 @@ LOG_FILE='ingatlancom_log.txt'
 
 #CONNECTION_STRING = os.environ.get('CONNECTION_SRING')
 
+ 
