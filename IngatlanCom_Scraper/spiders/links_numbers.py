@@ -80,7 +80,7 @@ class PhoneNumSpider(scrapy.Spider):
         # page_source=driver.page_source
         # new_selector = Selector(text=page_source)
         
-        new_selector = Selector(text=response.body)
+        new_selector = Selector(text=response.body) 
 
         loader=ItemLoader(item=IngatlanItem(), selector=new_selector)
         #loader.add_css('street_address','.address ::text')
