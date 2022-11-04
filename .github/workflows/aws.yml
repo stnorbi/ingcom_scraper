@@ -23,7 +23,7 @@ jobs:
         aws-region: eu-central-1
 
     - name: Login to Amazon ECR
-      id: login-ecr-private
+      id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
       with:
         registry-type: private
