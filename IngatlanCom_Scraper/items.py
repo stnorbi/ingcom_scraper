@@ -24,5 +24,5 @@ class IngatlanItem(Item):
     sid_salesman=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     #phone_num=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     iroda=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
-
+ 
 
