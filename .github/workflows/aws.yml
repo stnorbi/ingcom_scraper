@@ -58,15 +58,15 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
-        REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-        REGISTRY_ALIAS: businesswatcher
+        REGISTRY: public.ecr.aws
+        REGISTRY_ALIAS: z4w2t5f2
         REPOSITORY: ingatlancom
         IMAGE_TAG: latest
       run: |
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$REGISTRY/$REPOSITORY:$IMAGE_TAG
+        docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+        docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
  
