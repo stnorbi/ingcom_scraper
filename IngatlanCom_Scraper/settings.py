@@ -153,8 +153,8 @@ ITEM_PIPELINES = {
 
 #AWS S3 Storage:
 
-AWS_ACCESS_KEY_ID = os.environ['ACCESS_KEY']
-AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
+# AWS_ACCESS_KEY_ID = os.environ['ACCESS_KEY']
+# AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 
 #AWS S3 Storage:
 FEEDS = {
