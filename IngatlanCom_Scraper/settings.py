@@ -126,7 +126,7 @@ SPIDER_MIDDLEWARES = {
 ITEM_PIPELINES = {
    #'IngatlanCom_Scraper.pipelines.IngatlancomScraperPipeline': 300,
 #    'scrapy_redis.pipelines.RedisPipeline': 400,
-    #'s3pipeline.S3Pipeline': 100,   
+    's3pipeline.S3Pipeline': 100,   
     'scrapy.pipelines.files.FilesPipeline': 1  # For files
 }
 
@@ -151,21 +151,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-#AWS S3 Storage:
-
-AWS_ACCESS_KEY_ID = os.environ['ACCESS_KEY']
-AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
-
-#AWS S3 Storage:
-FEEDS = {
-        's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
-        'format': 'json',
-        'encoding': 'utf8',
-        'store_empty': False,
-        'indent': 4,
-    }
-}
-
 
 
 LOG_ENABLED=True
@@ -176,4 +161,19 @@ LOG_FILE='ingatlancom_log.txt'
 
 #CONNECTION_STRING = os.environ.get('CONNECTION_SRING')
 
-  
+
+#AWS S3 Storage:
+
+AWS_ACCESS_KEY_ID = os.environ['ACCESS_KEY']
+AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
+
+#AWS S3 Storage:
+FEEDS = {
+        's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
+        #'s3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + LOG_FILE: {
+        'format': 'json',
+        'encoding': 'utf8',
+        'store_empty': False,
+        'indent': 4,
+    }
+}
