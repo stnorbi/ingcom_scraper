@@ -82,7 +82,7 @@ class PhoneNumSpider(scrapy.Spider):
         # time.sleep(3)
         # page_source=driver.page_source
         # new_selector = Selector(text=page_source)
-        
+        print(response.body)
         new_selector = Selector(text=response.body) 
 
         loader=ItemLoader(item=IngatlanItem(), selector=new_selector)

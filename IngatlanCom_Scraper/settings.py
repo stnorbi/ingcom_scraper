@@ -126,7 +126,6 @@ SPIDER_MIDDLEWARES = {
 ITEM_PIPELINES = {
    #'IngatlanCom_Scraper.pipelines.IngatlancomScraperPipeline': 300,
 #    'scrapy_redis.pipelines.RedisPipeline': 400,
-    's3pipeline.S3Pipeline': 100,   
     'scrapy.pipelines.files.FilesPipeline': 1  # For files
 }
 
