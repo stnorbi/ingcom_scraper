@@ -66,6 +66,15 @@ DOWNLOADER_MIDDLEWARES = {
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
 #USER_AGENT = 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+DEFAULT_REQUEST_HEADERS = {
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+    'accept-language': 'en-US,en;q=0.9',
+    'cache-control': 'no-cache',
+    'cookie': 'MUID=; SRCHD=AF=NOFORM; SRCHUID=1; SRCHUSR=; _EDGE_S=SID=; MUIDB=; _SS=SID=; ipv6=; SRCHHPGUSR=;',
+    'pragma': 'no-cache',
+    'upgrade-insecure-requests': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
+}
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -170,7 +179,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 FEEDS = {
         's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
         #'s3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + LOG_FILE: {
-        'format': 'json',
+        'format': 'jsonlines',
         'encoding': 'utf8',
         'store_empty': False,
         'indent': 4,
