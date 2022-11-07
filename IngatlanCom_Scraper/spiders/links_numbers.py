@@ -19,7 +19,7 @@ load_dotenv()
 class PhoneNumSpider(scrapy.Spider):
     name = "PhoneNum"
     mainurl='https://ingatlan.com'
-    urls =os.environ['SEARCH_CITY_URL'] + '+' + os.environ['DEAL'] + '+' + os.environ['PROPERTY_TYPE'])
+    urls =os.environ['SEARCH_CITY_URL'] + '+' + os.environ['DEAL'] + '+' + os.environ['PROPERTY_TYPE']
 #    urls ='https://ingatlan.com/lista/'+ os.environ['DEAL'] + '+' + os.environ['PROPERTY_TYPE']
 
     print(urls)
