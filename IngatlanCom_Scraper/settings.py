@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print(os.environ['SEARCH_CITY_URL'] + os.environ['DEAL'] + '+' + os.environ['PROPERTY_TYPE'])
+
 
 BOT_NAME = 'IngatlanCom_Scraper'
 
