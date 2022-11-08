@@ -43,6 +43,7 @@ class PhoneNumSpider(scrapy.Spider):
     def pagination(self,response):
           
         maxpage=response.css('.pagination__page-number').get()
+        print(maxpage)
         
         if maxpage:
             maxpage.split()
@@ -61,9 +62,9 @@ class PhoneNumSpider(scrapy.Spider):
   
 
     def parseLinks(self, response):
-        
         resp=response.css('a.listing__link.js-listing-active-area::attr(href)').extract()
         for i in resp:
+            print(i)
             yield SeleniumRequest(url='https://ingatlan.com'+i,callback=self.phonescrape,
                                   #wait_time=5,
                                   #wait_until=phoneparse,
