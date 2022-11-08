@@ -46,7 +46,7 @@ class PhoneNumSpider(scrapy.Spider):
         print(maxpage)
         
         if maxpage:
-            maxpage.split()
+            maxpage=maxpage.split()
             j=int(maxpage[4])+1 #utolsó oldalszám
         else:
             maxpage=1
