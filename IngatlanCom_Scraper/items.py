@@ -19,10 +19,15 @@ class IngatlanItem(Item):
     # name = scrapy.Field()
     street_address=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     price=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    floor_space=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    plot_area=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    nr_rooms=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     url=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
-    salesman=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
-    sid_salesman=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    ingc_id=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    
+    # salesman=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    # sid_salesman=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
     #phone_num=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
-    iroda=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
+    # iroda=Field(input_processor=MapCompose(clean_text),output_processor=TakeFirst())
  
 

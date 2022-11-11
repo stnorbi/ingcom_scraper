@@ -10,9 +10,14 @@
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+from twisted.python import log
 
 load_dotenv()
 
+
+#redirect logging to system
+observer = log.PythonLoggingObserver()
+observer.start()
 
 
 BOT_NAME = 'IngatlanCom_Scraper'
@@ -165,7 +170,8 @@ LOG_ENABLED=True
 LOG_LEVEL = 'DEBUG'
 LOG_ENCODING='UTF-8'
 LOG_FILE='ingatlancom_log.txt'
-#LOG_FORMAT='%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_FORMAT='%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_STDOUT=True
 
 #CONNECTION_STRING = os.environ.get('CONNECTION_SRING')
 
@@ -178,7 +184,6 @@ AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 #AWS S3 Storage:
 FEEDS = {
         's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
-        #'s3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + LOG_FILE: {
         'format': 'jsonlines',
         'encoding': 'utf8',
         'store_empty': False,

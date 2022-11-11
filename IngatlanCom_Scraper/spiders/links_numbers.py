@@ -15,18 +15,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-
 class PhoneNumSpider(scrapy.Spider):
     name = "PhoneNum"
     mainurl='https://ingatlan.com'
     urls =os.environ['SEARCH_CITY_URL'] + '+' + os.environ['DEAL'] + '+' + os.environ['PROPERTY_TYPE']
 #    urls ='https://ingatlan.com/lista/'+ os.environ['DEAL'] + '+' + os.environ['PROPERTY_TYPE']
 
-    print(urls)
-
-#+ '+' + os.environ['CITY']
-
-    # redis_key='PhoneNum'
     
     def __init__(self, *args, **kwargs):
         super(PhoneNumSpider, self).__init__(*args, **kwargs)
@@ -52,7 +46,6 @@ class PhoneNumSpider(scrapy.Spider):
             maxpage=1
             j=2
         
-
         
         for i in range(1,j): # A 2-est cseréld le "j"-re!!!
             url=self.urls + "?page=" + str(i)
@@ -64,7 +57,6 @@ class PhoneNumSpider(scrapy.Spider):
     def parseLinks(self, response):
         resp=response.css('a.listing__link.js-listing-active-area::attr(href)').extract()
         for i in resp:
-            print(i)
             yield SeleniumRequest(url='https://ingatlan.com'+i,callback=self.phonescrape,
                                   #wait_time=5,
                                   #wait_until=phoneparse,
@@ -91,15 +83,25 @@ class PhoneNumSpider(scrapy.Spider):
         #loader.add_css('street_address','.address ::text')
         loader.add_css('street_address','.align-items-md-start > div:nth-child(1) > span:nth-child(1) ::text')
         loader.add_css('price','span.fw-bold.fs-5.text-nowrap span ::text')
+        loader.add_css('floor_space','div.listing-property:nth-child(2) > span:nth-child(2) ::text')
+        
+        #lakás és ház közötti renderelési különbség szétválasztása 
+        if os.environ['PROPERTY_TYPE']=='haz':
+            loader.add_css('plot_area','div.listing-property:nth-child(3) > span:nth-child(2) ::text')
+            loader.add_css('nr_rooms','div.listing-property:nth-child(4) > span:nth-child(2) ::text')
+        elif os.environ['PROPERTY_TYPE']=='lakas':
+            loader.add_css('nr_rooms','div.listing-property:nth-child(3) > span:nth-child(2) ::text')
+            
+        loader.add_xpath('ingc_id','/html/body/section[1]/div[2]/div[2]/div/div[1]/span/strong/text()')
         # loader.add_css('iroda','.officeName ::text')
         # loader.add_css('salesman','.d-flex align-items-center text-start h-100 my-auto font-family-secondary ::text')
 
         
-        try:
-            loader.add_css('sid_salesman','.listingIdentityPart :strong')
-        except:
-            loader.add_value('sid_salesman','')
-            pass
+        #try:
+        #     loader.add_css('sid_salesman','.listingIdentityPart :strong')
+        # except:
+        #     loader.add_value('sid_salesman','')
+        #     pass
         
         #loader.add_css('phone_num','.number ::text')
         loader.add_value('url',response.url)
