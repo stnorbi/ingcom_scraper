@@ -36,6 +36,7 @@ SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=[
                         #Firefox capabilities
                         #'marionette=False',
+                        #'--marionette-port',
                         '-headless'
                            ]  
 
@@ -85,22 +86,26 @@ DEFAULT_REQUEST_HEADERS = {
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 16
-CONCURRENT_ITEMS=500
+CONCURRENT_REQUESTS = os.environ['CONCURRENT_REQUESTS']
+CONCURRENT_ITEMS=os.environ['CONCURRENT_ITEMS']
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = os.environ['DOWNLOAD_DELAY']
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 16
+#CONCURRENT_REQUESTS_PER_DOMAIN = os.environ['CONCURRENT_REQUESTS_PER_DOMAIN']
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-COOKIES_ENABLED = True
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
-TELNETCONSOLE_ENABLED = True
+TELNETCONSOLE_ENABLED = os.environ['TELNETCONSOLE_ENABLED']
+
+REDIRECT_ENABLED = os.environ['REDIRECT_ENABLED']
+REACTOR_THREADPOOL_MAXSIZE = os.environ['REACTOR_THREADPOOL_MAXSIZE']
+DOWNLOAD_TIMEOUT = os.environ['DOWNLOAD_TIMEOUT']
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
@@ -167,7 +172,7 @@ ITEM_PIPELINES = {
 
 
 LOG_ENABLED=True
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = os.environ['LOG_LEVEL']
 LOG_ENCODING='UTF-8'
 LOG_FILE='ingatlancom_log.txt'
 LOG_FORMAT='%(asctime)s [%(name)s] %(levelname)s: %(message)s'
@@ -184,6 +189,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 #AWS S3 Storage:
 FEEDS = {
         's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
+        #'result.json':{
         'format': 'jsonlines',
         'encoding': 'utf8',
         'store_empty': False,
