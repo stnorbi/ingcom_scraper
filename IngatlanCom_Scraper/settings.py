@@ -65,7 +65,14 @@ SELENIUM_DRIVER_ARGUMENTS=[
   
 DOWNLOADER_MIDDLEWARES = {
     'scrapy_selenium.SeleniumMiddleware': 800,
-    'IngatlanCom_Scraper.middlewares.IngatlancomScraperDownloaderMiddleware': 500,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy.spidermiddlewares.referer.RefererMiddleware': 80,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 120,
+    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 130,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+    'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': 900,
+    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 1000,
      }
 
 
@@ -93,9 +100,10 @@ CONCURRENT_ITEMS=os.environ['CONCURRENT_ITEMS']
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 DOWNLOAD_DELAY = os.environ['DOWNLOAD_DELAY']
+RANDOMIZE_DOWNLOAD_DELAY=os.environ['RANDOMIZE_DOWNLOAD_DELAY']
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = os.environ['CONCURRENT_REQUESTS_PER_DOMAIN']
-#CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = os.environ['CONCURRENT_REQUESTS_PER_DOMAIN']
+CONCURRENT_REQUESTS_PER_IP = os.environ['CONCURRENT_REQUESTS_PER_IP']
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
@@ -150,16 +158,20 @@ ITEM_PIPELINES = {
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = os.environ['AUTOTHROTTLE_ENABLED']
 # The initial download delay
-#AUTOTHROTTLE_START_DELAY = 1
+AUTOTHROTTLE_START_DELAY = os.environ['AUTOTHROTTLE_START_DELAY']
 # The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 0.25
+AUTOTHROTTLE_MAX_DELAY = os.environ['AUTOTHROTTLE_MAX_DELAY']
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 128
+AUTOTHROTTLE_TARGET_CONCURRENCY = os.environ['AUTOTHROTTLE_TARGET_CONCURRENCY']
 # Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = True
+AUTOTHROTTLE_DEBUG = os.environ['AUTOTHROTTLE_DEBUG']
+
+RETRY_ENABLED = os.environ['RETRY_ENABLED']
+RETRY_TIMES = os.environ['RETRY_TIMES']
+RETRY_HTTP_CODES = list(os.environ['RETRY_HTTP_CODES'].split(","))
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
@@ -189,7 +201,6 @@ AWS_SECRET_ACCESS_KEY = os.environ['SECRET_ACCESS_KEY']
 #AWS S3 Storage:
 FEEDS = {
         's3://ingatlan-com-source/'+ os.environ['DEAL'] + '/' + os.environ['DEAL']+'_'+os.environ['PROPERTY_TYPE']+'_' + os.environ['CITY'] + '_'+ datetime.now().strftime("%Y%m%d_%H%M%S")+'.json': {
-        #'result.json':{
         'format': 'jsonlines',
         'encoding': 'utf8',
         'store_empty': False,
